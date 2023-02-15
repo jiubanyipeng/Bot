@@ -1,0 +1,13 @@
+{
+  "access_token": "你设置的access_token",
+  "url": "ip:端口 或 域名:端口",
+  "global_api_key": "ChatGPT 的api-key",
+  "global_model": "openai的模型，目前免费版本中比较好的是这个，其他的模型没有测试过",
+  "global_group_disabled": "在q群里面被@，是否禁用在群里面@回复的功能，默认是允许，禁用填 true，注意没有引号",
+  "global_private_disabled": "好友发信息时，是否仅允许特定的人回复，默认是允许，禁用填 true，注意没有引号且填写下面的QQ账号",
+  "global_private_group": [
+    "2956098898",
+    "QQ账号二",
+    "QQ账号三"
+  ]
+}
