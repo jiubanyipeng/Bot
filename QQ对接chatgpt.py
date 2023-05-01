@@ -7,7 +7,8 @@ from requests import post as requests_post
 def generate_text(prompt):
     global global_api_key, global_model
     try:
-        completions_endpoint = f"https://api.openai.com/v1/engines/{global_model}/completions"
+        # completions_endpoint = f"https://api.openai.com/v1/engines/{global_model}/completions"
+        completions_endpoint = f"https://porxy.jiubanyipeng.com/v1/engines/{global_model}/completions" # 国内无法直接访问
         headers = { "Content-Type": "application/json","Authorization": f"Bearer {global_api_key}"}
         data = {"prompt": prompt,"max_tokens": 1000,"temperature": 0.5}
         response = requests_post(completions_endpoint, headers=headers, json=data)
