@@ -10,6 +10,6 @@
     "QQ账号二",
     "QQ账号三"
   ],
-  "proxy":"协议+地址:端口,注意仅支持反代理地址，如https://porxy.jiubanyipeng.com/，源码会默认添加路径 v1/engines/模型/completions",
+  "proxy":"协议+地址:端口,注意仅支持反代理地址，如https://porxy.jiubanyipeng.com/，源码会默认添加路径 v1/engines/模型/completions，如果不需要可以直接为空",
   "show_quiz":"在提出问题时，是否将问题显示出来，默认为 true，不显示为 false"
 }
