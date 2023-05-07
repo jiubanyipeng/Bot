@@ -6,8 +6,10 @@
   "global_group_disabled": "在q群里面被@，是否禁用在群里面@回复的功能，默认是允许，禁用填 true，注意没有引号",
   "global_private_disabled": "好友发信息时，是否仅允许特定的人回复，默认是允许，禁用填 true，注意没有引号且填写下面的QQ账号",
   "global_private_group": [
-    "2956098898",
+    "允许的账号一",
     "QQ账号二",
     "QQ账号三"
-  ]
+  ],
+  "proxy":"协议+地址:端口,注意仅支持反代理地址，如https://porxy.jiubanyipeng.com/，源码会默认添加路径 v1/engines/模型/completions",
+  "show_quiz":"在提出问题时，是否将问题显示出来，默认为 true，不显示为 false"
 }
