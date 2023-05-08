@@ -10,7 +10,7 @@ def generate_text(prompt):
         if len(global_proxy) < 3:
             completions_endpoint = f"https://api.openai.com/v1/engines/{global_model}/completions"
         else:
-            completions_endpoint = f"{global_proxy}/{global_model}/completions"
+            completions_endpoint = f"{global_proxy}/v1/engines/{global_model}/completions"
         headers = {"Content-Type": "application/json", "Authorization": f"Bearer {global_api_key}"}
         data = {"prompt": prompt, "max_tokens": 1000, "temperature": 0.5}
         try:
@@ -77,8 +77,9 @@ def on_message(ws, message):
         # 判断是否是 @ 机器人的消息
         if f"[CQ:at,qq={data['self_id']}]" in data['message']:
             sickle_mes = data['message'].replace(f'[CQ:at,qq={data["self_id"]}]', '')  # 将群信息@替换处理，仅保留信息内容
-            mes_reply = {'code': True, 'mes': f'正在为您查询中......'}
-            ws.send(send_msg(mes_reply, data['user_id'], group_id=data['group_id']))
+            if global_show_quiz == 'true':
+                mes_reply = {'code': True, 'mes': f'正在为您查询中......'}
+                ws.send(send_msg(mes_reply, data['user_id'], group_id=data['group_id']))
             global global_group_disabled
             if global_group_disabled == "true":
                 mes = {'code': False, 'mes': '对不起，暂时取消了对接的功能'}
