@@ -12,3 +12,4 @@ openai_config.json 是项目的配置文件，openai_config-说明.json是配置
 虽然基本功能已经完成，但很多方面的测试也没有进行，如有问题请发我邮件或进群询问！<br>
 <a href="https://www.jiubanyipeng.com/1072.html">教程说明地址</a>
 <a href="https://github.com/Mrs4s/go-cqhttp">go-cqhttp项目地址</a>
+<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=xPGb7CjUN9fIKuJaxbxYrxSRFdzn2dfm&jump_from=webapi&authKey=PR6wsA8VkFLEfvU1Rh8p0SiClK99cgtVeeldQ1MVxhfUCuzkPVan1X15NjwyAetk"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="玖伴一鹏" title="玖伴一鹏">QQ群</a>
