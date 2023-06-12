@@ -7,6 +7,7 @@
 1.QQ对接chatgpt.py：最初的版本，进支持单个聊天，适用于图片等只需要单个的
 2.QQ对接chatgpt-1.1.py：第二次更新版本，支持连续对话，对话数据在交换成功后写入本地文件中，文件的生成是根据本地年月日+qq号生成的文件，存在当天会话数过多的可能且存在今天跟明天没有进行连续的问题。
 3.openai_config.json：文件新增几个参数给1.1版本支持。
+4.在1.1版本中，官方text-davinci-003模型现在是不支持对话的
 <h1>使用说明</h1>
 1.  先运行go-cqhttp程序，<a href="https://github.com/Mrs4s/go-cqhttp/releases">项目下载地址</a> 该程序必须运行成功之后才可以进行下面的操作<br>
 2.  配置 openai_config.json 文件，说明文件在openai_config-说明.json中。<br>
