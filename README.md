@@ -1,7 +1,7 @@
 <h1>各种GPT的API接口对接QQ</h1>
 1.项目是基于 go-cqhttp + Python 搭建，响应接口由各种GPT的API接口回答<br>
 2.开发版本为Python 3.9<br>
-3.如果你不懂开发环境安装，直接下载 OpenAI对接QQ-exe.zip，里面有64位系统运行程序，其他版本暂时不考虑提供。<br>
+3.如果你不懂开发环境安装，直接下载集成环境（<a href="https://github.com/jiubanyipeng/Bot/releases/">下载地址</a>），里面有64位系统运行程序，其他版本暂时不考虑提供。<br>
 4.openai_config.json 是项目的配置文件，openai_config-说明.json是配置文件参考。<br>
 <h1>版本说明</h1>
 <p>3.0 <b>全新版本，移除旧版本的程序，重新定义和配置文件对接QQ模块</b><br></p>
