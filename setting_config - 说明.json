@@ -1,0 +1,35 @@
+{
+  "access_token": "cqhttp的access_token",
+  "cqhttp_url": "cqhttp的地址和端口",
+  "api_name": "api接口名称，注意这里是'name'，下面就是name_config，目前仅支持两个",
+  "max_tokens": 模型聊天最大的长度，目前openapi3的就只有8k，讯飞也是，后期支持到32k，这里的是数字,
+  "bot_chat_log": 是否写入日志
+  "xunfei_config": {
+    "appid": "讯飞的appid",
+    "api_secret": "讯飞的api_secret",
+    "api_key": "讯飞的api_key",
+    "model": "讯飞的模型版本",
+    "url": "讯飞的模型版本访问地址",
+    "max_tokens": 回复最大的长度,
+    "temperature": 模糊回答值
+  },
+  "openai_config": {
+    "api_key": "openai的api_key",
+    "model": "openai的模型版本",
+    "url": "openai的api访问地址",
+    "max_tokens": 回复最大的长度,
+    "temperature": 模糊回答值
+  },
+  "qq_config": {
+    "timeout_clear": 多少秒清空聊天记录,
+    "group_disabled": Q群信息是否仅允许部分
+    "private_disabled": 信息是否仅允许部分,
+    "permit_group": [
+      "2956098898",
+      "QQ账号二",
+      "QQ账号三",
+      "允许的账号四，以列表形式"
+    ]
+  }
+
+}
