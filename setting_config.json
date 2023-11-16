@@ -14,7 +14,7 @@
     "temperature": 0.5
   },
   "openai_config": {
-    "api_key": "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",
+    "api_key": "sk-900000000000000000",
     "model": "text-davinci-003",
     "url": "https://api.chatgpt.com/v1/chat/completions",
     "max_tokens": 4096,
