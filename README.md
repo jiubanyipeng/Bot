@@ -14,6 +14,8 @@
       支持自定义指令（如：更新配置文件，添加允许账号等）<br>
       支持文件上传并解析 <br>
       全局代理（目前仅支持第三方代理对应的api接口，本地去访问代理的）<br>
+      并发限制<br>
+      语音输入、文件生成、文件内容解析等GPT4版本高级功能<br>
       ......
 <p>2.1 openai_config.json文件新增几个参数给2.1版本支持。同时，考虑到有些代理跟项目中请求的地址是不一致的，因此在2.1的配置文件中需要自行添加地址。</p>
 <p>2.0 仅支持对话，可连续对话，对话数据在交换成功后写入本地文件中，文件的生成是根据本地年月日+qq号生成的文件，存在当天会话数过多的可能且存在今天跟明天没有进行连续的问题。</p>
@@ -23,7 +25,8 @@
 2.  配置 setting_config.json 文件，说明文件在setting_config-说明.json中。<br>
 3.  在配置文件中，主要配置go-cqhttp程序的 access_token 和通讯地址，通讯地址为 ip+端口 ，cqhttp默认是走socket协议且在本教程中是反向的，正向的暂时没有进行测试。<br>
 4.  默认机器人是允许所有好友进行回复，详情设置请参考配置说明文件。<br>
-虽然基本功能已经完成，但很多方面的测试也没有进行，如有问题请发我邮件或进群询问！<br>
+    
+<h3>基本功能已经完成，但很多测试没有进行，如有问题请发我邮件或进群询问！</h3>
 <h3><a href="https://www.jiubanyipeng.com/1072.html">教程说明地址（3之前的不更新，请忽略）</a></h3>
 <h3><a href="https://github.com/Mrs4s/go-cqhttp">go-cqhttp项目地址</a></h3>
 <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=xPGb7CjUN9fIKuJaxbxYrxSRFdzn2dfm&jump_from=webapi&authKey=PR6wsA8VkFLEfvU1Rh8p0SiClK99cgtVeeldQ1MVxhfUCuzkPVan1X15NjwyAetk"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png">QQ群:939531887</a>
