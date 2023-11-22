@@ -23,7 +23,7 @@
 <h1>使用说明</h1>
 1.  先运行go-cqhttp程序，<a href="https://github.com/Mrs4s/go-cqhttp/releases">项目下载地址</a> 该程序必须运行成功之后才可以进行下面的操作<br>
 2.  配置 setting_config.json 文件，说明文件在setting_config-说明.json中。<br>
-3.  在配置文件中，主要配置go-cqhttp程序的 access_token 和通讯地址，通讯地址为 ip+端口 ，cqhttp默认是走socket协议且在本教程中是反向的，正向的暂时没有进行测试。<br>
+3.  在配置文件中，主要配置go-cqhttp程序的 access_token 和通讯地址，通讯地址为 ip+端口 ，cqhttp默认是走正向socket协议，其他协议没有进行测试<br>
 4.  默认机器人是允许所有好友进行回复，详情设置请参考配置说明文件。<br>
     
 <h3>基本功能已经完成，但很多测试没有进行，如有问题请发我邮件或进群询问！</h3>
