@@ -58,7 +58,9 @@
         <td>true</td>
         <td>是否将对话聊天记录写入日志</td>
     </tr>
-    <caption>以下是：qq_config说明</tr></caption>
+</table>
+<table>
+    <caption>以下是：qq_config说明</caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
@@ -84,6 +86,8 @@
         <td>['2956098898','账号二','']</td>
         <td>类型为：列表，如果上面开启仅允许部分进行回复，这里是可进行回复名单</td>
     </tr>
+    </table>
+<table>
    <caption>以下是xunfei_config的配置文件说明：</caption>
     <tr align="center">
         <th>键名</th>
@@ -125,6 +129,8 @@
         <td>0.5</td>
         <td>类型为浮点，接口信息返回随机值</td>
     </tr>
+</table>
+<table>
     <caption>以下是：openai_config 配置说明</caption>
     <tr align="center">
         <th>键名</th>
