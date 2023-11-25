@@ -27,7 +27,7 @@
 4.  默认机器人是允许所有好友进行回复，详情设置请参考配置说明文件。<br>
     
 <table>
-    <caption>这里是主配置说明：</th></tr></caption>
+    <caption>这里是主配置说明：</caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
