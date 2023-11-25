@@ -26,6 +26,139 @@
 3.  在配置文件中，主要配置go-cqhttp程序的 access_token 和通讯地址，通讯地址为 ip+端口 ，cqhttp默认是走正向socket协议，其他协议没有进行测试<br>
 4.  默认机器人是允许所有好友进行回复，详情设置请参考配置说明文件。<br>
     
+<table>
+    <tr>这里是主配置说明：</tr>
+    <tr align="center">
+        <th>键名</th>
+        <th>参考值</th>
+        <th>说明</th>
+    </tr>
+    <tr align="center">
+        <td>access_token</td>
+        <td>"jiubanyipeng"</td>
+        <td>cqhttp的access_token，可为空</td>
+    </tr>
+    <tr align="center">
+        <td>cqhttp_url</td>
+        <td>"127.0.0.1:80"</td>
+        <td>cqhttp的地址和端口</td>
+    </tr>
+    <tr align="center">
+        <td>api_name</td>
+        <td>"openai"</td>
+        <td>api接口名称,如果这里填写'name'，api的配置名就是"name_config"</td>
+    </tr>
+    <tr align="center">
+        <td>max_tokens</td>
+        <td>8000</td>
+        <td>模型聊天最大的长度，目前openai和讯飞的api接口最大8k，OpenAI 4的版本支持到32k，这里的是数字</td>
+    </tr>
+    <tr align="center">
+        <td>bot_chat_log</td>
+        <td>true</td>
+        <td>是否将对话聊天记录写入日志</td>
+    </tr>
+    <tr>以下是：qq_config说明</tr>
+    <tr align="center">
+        <th>键名</th>
+        <th>参考值</th>
+        <th>说明</th>
+    </tr>
+    <tr align="center">
+        <td>timeout_clear</td>
+        <td>3600</td>
+        <td>类型为：整型，单位：秒。在多少秒后未进行聊天便清空聊天记录</td>
+    </tr>
+    <tr align="center">
+        <td>group_disabled</td>
+        <td>false</td>
+        <td>类型为：布尔，在Q群信息中@机器人是否仅允许部分账号进行回复</td>
+    </tr>
+    <tr align="center">
+        <td>private_disabled</td>
+        <td>false</td>
+        <td>类型为：布尔，私聊机器人是否仅允许部分账号进行回复</td>
+    </tr>
+    <tr align="center">
+        <td>permit_group</td>
+        <td>['2956098898','账号二','']</td>
+        <td>类型为：列表，如果上面开启仅允许部分进行回复，这里是可进行回复名单</td>
+    </tr>
+    <tr align="center">以下是xunfei_config的配置文件说明：</tr>
+    <tr align="center">
+        <th>键名</th>
+        <th>参考值</th>
+        <th>说明</th>
+    </tr>
+    <tr align="center">
+        <td>appid</td>
+        <td>"ag43fg5467"</td>
+        <td>讯飞的appid</td>
+    </tr>
+    <tr align="center">
+        <td>api_secret</td>
+        <td>"fdhs54654gdf35547h"</td>
+        <td>讯飞的api_secret</td>
+    </tr>
+    <tr align="center">
+        <td>api_key</td>
+        <td>"dfgda43534543gfsd"</td>
+        <td>讯飞的api_key</td>
+    </tr>
+    <tr align="center">
+        <td>model</td>
+        <td>"general"</td>
+        <td>讯飞的模型版本</td>
+    </tr>
+    <tr align="center">
+        <td>url</td>
+        <td>"ws://spark-api.xf-yun.com/v1.1/chat"</td>
+        <td>讯飞的模型版本访问地址</td>
+    </tr>
+    <tr align="center">
+        <td>max_tokens</td>
+        <td>4096</td>
+        <td>类型为数字，讯飞回复信息最大的长度</td>
+    </tr>
+    <tr align="center">
+        <td>temperature</td>
+        <td>0.5</td>
+        <td>类型为浮点，接口信息返回随机值</td>
+    </tr>
+    <tr>以下是：openai_config 配置说明</tr>
+    <tr align="center">
+        <th>键名</th>
+        <th>参考值</th>
+        <th>说明</th>
+    </tr>
+    <tr align="center">
+        <td>api_key</td>
+        <td>"fgdsgs546354dgjd"</td>
+        <td>类型为字符串，openai的api_key</td>
+    </tr>
+    <tr align="center">
+        <td>model</td>
+        <td>"text-davinci-003"</td>
+        <td>openai的模型版本</td>
+    </tr>
+    <tr align="center">
+        <td>url</td>
+        <td>"https://api.chatgpt.com/v1/chat/completions"</td>
+        <td>openai的api访问地址</td>
+    </tr>
+    <tr align="center">
+        <td>max_tokens</td>
+        <td>8192</td>
+        <td>类型为：整型，回复最大的长度</td>
+    </tr>
+    <tr align="center">
+        <td>temperature</td>
+        <td>0.5</td>
+        <td>模糊回答值</td>
+    </tr>
+    
+</table>
+
 <h3>基本功能已经完成，但很多测试没有进行，如有问题请发我邮件或进群询问！</h3>
 <h3><a href="https://www.jiubanyipeng.com/1072.html">教程说明地址（3之前的不更新，请忽略）</a></h3>
 <h3><a href="https://github.com/Mrs4s/go-cqhttp">go-cqhttp项目地址</a></h3>
