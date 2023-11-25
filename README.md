@@ -36,27 +36,27 @@
     <tr align="center">
         <td>access_token</td>
         <td>"jiubanyipeng"</td>
-        <td>cqhttp的access_token，可为空</td>
+        <td>类型为：字符，cqhttp的access_token，可为空</td>
     </tr>
     <tr align="center">
         <td>cqhttp_url</td>
         <td>"127.0.0.1:80"</td>
-        <td>cqhttp的地址和端口</td>
+        <td>类型为：字符，cqhttp的地址和端口，注意当前版本仅支持websocket协议</td>
     </tr>
     <tr align="center">
         <td>api_name</td>
         <td>"openai"</td>
-        <td>api接口名称,如果这里填写'name'，api的配置名就是"name_config"</td>
+        <td>类型为：字符，api接口名称,如果这里填写'name'，api的配置名就是"name_config"</td>
     </tr>
     <tr align="center">
         <td>max_tokens</td>
         <td>8000</td>
-        <td>模型聊天最大的长度，目前openai和讯飞的api接口最大8k，OpenAI 4的版本支持到32k，这里的是数字</td>
+        <td>类型为：整型，模型聊天最大的长度，目前openai和讯飞的api接口最大8k，OpenAI 4的版本支持到32k，这里的是数字</td>
     </tr>
     <tr align="center">
         <td>bot_chat_log</td>
         <td>true</td>
-        <td>是否将对话聊天记录写入日志</td>
+        <td>类型为：布尔，是否将对话聊天记录写入日志</td>
     </tr>
 </table>
 <table>
@@ -97,27 +97,27 @@
     <tr align="center">
         <td>appid</td>
         <td>"ag43fg5467"</td>
-        <td>讯飞的appid</td>
+        <td>类型为：字符，讯飞的appid</td>
     </tr>
     <tr align="center">
         <td>api_secret</td>
         <td>"fdhs54654gdf35547h"</td>
-        <td>讯飞的api_secret</td>
+        <td>类型为：字符，讯飞的api_secret</td>
     </tr>
     <tr align="center">
         <td>api_key</td>
         <td>"dfgda43534543gfsd"</td>
-        <td>讯飞的api_key</td>
+        <td>类型为：字符，讯飞的api_key</td>
     </tr>
     <tr align="center">
         <td>model</td>
         <td>"general"</td>
-        <td>讯飞的模型版本</td>
+        <td>类型为：字符，讯飞的模型版本</td>
     </tr>
     <tr align="center">
         <td>url</td>
         <td>"ws://spark-api.xf-yun.com/v1.1/chat"</td>
-        <td>讯飞的模型版本访问地址</td>
+        <td>类型为：字符，讯飞的模型版本访问地址</td>
     </tr>
     <tr align="center">
         <td>max_tokens</td>
@@ -140,17 +140,17 @@
     <tr align="center">
         <td>api_key</td>
         <td>"fgdsgs546354dgjd"</td>
-        <td>类型为字符串，openai的api_key</td>
+        <td>类型为:字符，openai的api_key</td>
     </tr>
     <tr align="center">
         <td>model</td>
         <td>"text-davinci-003"</td>
-        <td>openai的模型版本</td>
+        <td>类型为：字符，openai的模型版本</td>
     </tr>
     <tr align="center">
         <td>url</td>
         <td>"https://api.chatgpt.com/v1/chat/completions"</td>
-        <td>openai的api访问地址</td>
+        <td>类型为：字符，openai的api访问地址</td>
     </tr>
     <tr align="center">
         <td>max_tokens</td>
@@ -160,7 +160,7 @@
     <tr align="center">
         <td>temperature</td>
         <td>0.5</td>
-        <td>模糊回答值</td>
+        <td>类型为：浮点，模糊回答值</td>
     </tr>
     
 </table>
