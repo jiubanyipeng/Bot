@@ -1,0 +1,66 @@
+{
+  "name_api": "xunfei_config",
+  "max_tokens": 8000,
+  "bot_chat_log": true,
+  "bot_admin": false,
+  "qq_bot": true,
+  "weixin_bot": true,
+  "web_bot": false,
+  "qq_config": {
+    "timeout_clear": 3600,
+    "group_disabled": false,
+    "private_disabled": false,
+    "admin_group": [
+      "2956098898",
+      "QQ管理员账号二"
+    ],
+    "permit_group": [
+      "2956098898",
+      "QQ账号二",
+      "QQ账号三"
+    ]
+  },
+  "weixin_config": {
+    "timeout_clear": 3600,
+    "group_disabled": false,
+    "private_disabled": false,
+    "admin_group": [
+      "微信wid，暂时不做该功能",
+      "QQ管理员账号二"
+    ],
+    "permit_group": [
+      "微信wid，暂时不做该功能",
+      "QQ账号二",
+      "QQ账号三"
+    ]
+  },
+  "cqhttp": {
+    "access_token": "" ,
+    "cqhttp_url": "127.0.0.1:8080"
+  },
+  "wcfhttp": {
+    "weixin_url_port": 9988,
+    "weixin_url_path": "weixin_bot_post",
+    "wcfhttp_url": "http://127.0.0.1:9999"
+  },
+  "xunfei_config": {
+    "appid": "5b06afdg9d",
+    "api_secret": "NjNiMDAwsdfggsdsdfgs",
+    "api_key": "7154c2a81f12d6adfgafgafdgf",
+    "model": "general",
+    "url": "ws://spark-api.xf-yun.com/v1.1/chat",
+    "max_tokens": 4096,
+    "temperature": 0.5
+  },
+  "openai_config": {
+    "api_key": "sk-9vsNrBafdagafgafdgadfgafgadkN",
+    "model": "text-davinci-003",
+    "url": "https://api.chatgpt.com/v1/chat/completions",
+    "max_tokens": 4096,
+    "temperature": 0.5
+  },
+  "web_bot_config": {
+    "port": 9999
+  }
+}
+
