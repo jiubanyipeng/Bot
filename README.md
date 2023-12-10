@@ -3,6 +3,7 @@
 2.开发环境版本 Python：3.9，go-cqhttp：v1.0.0， WeChatFerry：39.0.6.0<br>
 3.如果你不懂开发环境安装，直接下载集成环境（<a href="https://github.com/jiubanyipeng/Bot/releases/">下载地址</a>），里面有64位系统运行程序，其他版本暂时不考虑提供。<br>
 4.openai_config.json 是项目的配置文件，openai_config-说明.json是配置文件参考。<br>
+5.<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=xPGb7CjUN9fIKuJaxbxYrxSRFdzn2dfm&jump_from=webapi&authKey=PR6wsA8VkFLEfvU1Rh8p0SiClK99cgtVeeldQ1MVxhfUCuzkPVan1X15NjwyAetk"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png">QQ群:939531887</a>
 <h1>版本说明</h1>
 <h5>3.1 <b>新增对接微信接口</b><br></h5>
 <p>修改架构，支持多线程，预留新增web框架接口</p>
@@ -31,38 +32,89 @@
 4.  默认机器人是允许所有好友进行回复，详情设置请参考配置说明文件。<br>
     
 <table>
-    <caption>这里是主配置说明：</caption>
+    <caption><h5>这里是主配置说明：</h5></caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
         <th>说明</th>
     </tr>
     <tr align="center">
-        <td>access_token</td>
-        <td>"jiubanyipeng"</td>
-        <td>类型为：字符，cqhttp的access_token，可为空</td>
-    </tr>
-    <tr align="center">
-        <td>cqhttp_url</td>
-        <td>"127.0.0.1:80"</td>
-        <td>类型为：字符，cqhttp的地址和端口，注意当前版本仅支持websocket协议</td>
-    </tr>
-    <tr align="center">
-        <td>api_name</td>
-        <td>"openai"</td>
-        <td>类型为：字符，api接口名称,如果这里填写'name'，api的配置名就是"name_config"</td>
+        <td>name_api</td>
+        <td>"xunfei_config"</td>
+        <td>类型为：字符，api接口名称,如果这里填写'name'，下面api的配置名就是"name"，注意键名不能重复</td>
     </tr>
     <tr align="center">
         <td>max_tokens</td>
         <td>8000</td>
-        <td>类型为：整型，模型聊天最大的长度，目前openai和讯飞的api接口最大8k，OpenAI 4的版本支持到32k，这里的是数字</td>
+        <td>类型为：整型，模型聊天最大的长度，目前openai和讯飞的api接口最大8k，OpenAI 4 版本支持到32k，这里的是数字</td>
     </tr>
     <tr align="center">
         <td>bot_chat_log</td>
         <td>true</td>
-        <td>类型为：布尔，是否将对话聊天记录写入日志</td>
+        <td>类型为：布尔，是否将对话聊天记录写入日志，不启用不影响历史对话</td>
+    </tr>
+    <tr align="center">
+        <td>bot_admin</td>
+        <td>false</td>
+        <td>类型为：布尔，是否启用一些特殊功能，该功能暂未开发</td>
+    </tr>
+    <tr align="center">
+        <td>qq_bot</td>
+        <td>true</td>
+        <td>类型为：布尔，是否启动对接QQ，该项只在多线程项目有效</td>
+    </tr>
+    <tr align="center">
+        <td>weixin_bot</td>
+        <td>true</td>
+        <td>类型为：布尔，是否启动对接微信，该项只在多线程项目有效</td>
+    </tr>
+    <tr align="center">
+        <td>web_bot</td>
+        <td>false</td>
+        <td>类型为：布尔，是否启动对接网页，该项只在多线程项目有效，该功能暂未开发</td>
+    </tr>
+    <tr align="center">
+        <td>qq_config</td>
+        <td>{}</td>
+        <td>类型为：字典，对接QQ的配置信息，详情见下方</td>
+    </tr>
+    <tr align="center">
+        <td>weixin_config</td>
+        <td>{}</td>
+        <td>类型为：字典，对接微信的配置信息，详情见下方</td>
+    </tr>
+    <tr align="center">
+        <td>cqhttp</td>
+        <td>{}</td>
+        <td>类型为：字典，对接cqhttp的配置信息，详情见下方</td>
+    </tr>
+    <tr align="center">
+        <td>wcfhttp</td>
+        <td>{}</td>
+        <td>类型为：字典，对接wcfhttp的配置信息，详情见下方</td>
+    </tr>
+    <tr align="center">
+        <td>cqhttp</td>
+        <td>{}</td>
+        <td>类型为：字典，对接cqhttp的配置信息，详情见下方</td>
+    </tr>
+    <tr align="center">
+        <td>xunfei_config</td>
+        <td>{}</td>
+        <td>类型为：字典，对接讯飞API的配置信息，该项的键名可以被修改但要与name_api中的值相同，但数据内的键名不可修改，详情见下方</td>
+    </tr>
+    <tr align="center">
+        <td>openai_config</td>
+        <td>{}</td>
+        <td>类型为：字典，对接OpenAI官方API的配置信息，该项的键名可以被修改但要与name_api中的值相同，但数据内的键名不可修改，详情见下方</td>
+    </tr>
+    <tr align="center">
+        <td>web_config</td>
+        <td>{}</td>
+        <td>类型为：字典，对接WEB配置信息，该项暂未开发</td>
     </tr>
 </table>
+
 <table>
     <caption>以下是：qq_config说明</caption>
     <tr align="center">
@@ -73,24 +125,97 @@
     <tr align="center">
         <td>timeout_clear</td>
         <td>3600</td>
-        <td>类型为：整型，单位：秒。在多少秒后未进行聊天便清空聊天记录</td>
+        <td>类型为：整型，单位：秒。在多少秒后未进行聊天便清空聊天记录，以免每次对话将对话历史代入</td>
     </tr>
     <tr align="center">
         <td>group_disabled</td>
         <td>false</td>
-        <td>类型为：布尔，在Q群信息中@机器人是否仅允许部分账号进行回复</td>
+        <td>类型为：布尔，如果启用，在Q群信息中@机器人仅允许 permit_group 中的账号进行回复</td>
     </tr>
     <tr align="center">
         <td>private_disabled</td>
         <td>false</td>
-        <td>类型为：布尔，私聊机器人是否仅允许部分账号进行回复</td>
+        <td>类型为：布尔，如果启用，在私聊信息中，机器人仅允许 permit_group 中的账号进行回复</td>
     </tr>
     <tr align="center">
         <td>permit_group</td>
-        <td>['2956098898','账号二','']</td>
+        <td>['2956098898','QQ账号二','账号三']</td>
         <td>类型为：列表，如果上面开启仅允许部分进行回复，这里是可进行回复名单</td>
     </tr>
     </table>
+    
+<table>
+    <caption>以下是 微信 的配置文件说明：</caption>
+    <tr align="center">
+        <th>键名</th>
+        <th>参考值</th>
+        <th>说明</th>
+    </tr>
+    <tr align="center">
+        <td>timeout_clear</td>
+        <td>3600</td>
+        <td>类型为：整型，单位：秒。在多少秒后未进行聊天便清空聊天记录，以免每次对话将对话历史代入</td>
+    </tr>
+    <tr align="center">
+        <td>group_disabled</td>
+        <td>false</td>
+        <td>类型为：布尔，如果启用，在Q群信息中@机器人仅允许 permit_group 中的账号进行回复</td>
+    </tr>
+    <tr align="center">
+        <td>private_disabled</td>
+        <td>false</td>
+        <td>类型为：布尔，如果启用，在私聊信息中，机器人仅允许 permit_group 中的账号进行回复</td>
+    </tr>
+    <tr align="center">
+        <td>permit_group</td>
+        <td>['wxid_ligxf2y1z3f712','微信wxid','账号三']</td>
+        <td>类型为：列表，仅允许部分回复名单，获取微信id的方法之一就是打开微信聊天记录文件地址，看到wxid开头的文件夹就是</td>
+    </tr>
+</table>
+
+<table>
+    <caption>以下是cqhttp的配置文件说明：</caption>
+    <tr align="center">
+        <th>键名</th>
+        <th>参考值</th>
+        <th>说明</th>
+    </tr>
+    <tr align="center">
+        <td>access_token</td>
+        <td>"jiubanyipeng"</td>
+        <td>类型为：字符，go-cqhttp的访问秘钥，默认为空</td>
+    </tr>
+    <tr align="center">
+        <td>cqhttp_url</td>
+        <td>"127.0.0.1:8080"</td>
+        <td>类型为：字符，go-cqhttp的websocket连接地址，目前仅支持正向连接且仅支持ws协议</td>
+    </tr>
+</table>
+
+<table>
+    <caption>以下是wcfhttp的配置文件说明：</caption>
+    <tr align="center">
+        <th>键名</th>
+        <th>参考值</th>
+        <th>说明</th>
+    </tr>
+    <tr align="center">
+        <td>weixin_url_port</td>
+        <td>9988</td>
+        <td>类型为：整型，程序对接wcfhttp时运行的端口，如：wcfhttp --cb http://127.0.0.1:9988/weixin_bot_post </td>
+    </tr>
+    <tr align="center">
+        <td>weixin_url_path</td>
+        <td>"weixin_bot_post"</td>
+        <td>类型为：字符，程序对接wcfhttp时接收的地址，如：wcfhttp --cb http://127.0.0.1:9988/weixin_bot_post </td>
+    </tr>
+    <tr align="center">
+        <td>wcfhttp_url</td>
+        <td>"http://127.0.0.1:9999"</td>
+        <td>类型为：字符，wcfhttp运行地址和端口，注意带上协议，默认运行的端口是9999端口</td>
+    </tr>
+</table>
+
 <table>
    <caption>以下是xunfei_config的配置文件说明：</caption>
     <tr align="center">
@@ -134,6 +259,7 @@
         <td>类型为浮点，接口信息返回随机值</td>
     </tr>
 </table>
+
 <table>
     <caption>以下是：openai_config 配置说明</caption>
     <tr align="center">
@@ -166,10 +292,9 @@
         <td>0.5</td>
         <td>类型为：浮点，模糊回答值</td>
     </tr>
-    
 </table>
+
 
 <h3>基本功能已经完成，但很多测试没有进行，如有问题请发我邮件或进群询问！</h3>
 <h3><a href="https://www.jiubanyipeng.com/1072.html">教程说明地址（3之前的不更新，请忽略）</a></h3>
-<h3><a href="https://github.com/Mrs4s/go-cqhttp">go-cqhttp项目地址</a></h3>
 <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=xPGb7CjUN9fIKuJaxbxYrxSRFdzn2dfm&jump_from=webapi&authKey=PR6wsA8VkFLEfvU1Rh8p0SiClK99cgtVeeldQ1MVxhfUCuzkPVan1X15NjwyAetk"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png">QQ群:939531887</a>
