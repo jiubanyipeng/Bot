@@ -2,7 +2,7 @@
 1.QQ项目是基于：（<a href="https://github.com/Mrs4s/go-cqhttp">go-cqhttp</a>项目搭建</a>），微信项目是基于（<a href="https://github.com/lich0821/WeChatFerry/"> WeChatFerry </a>），响应接口由各种GPT的API接口回答<br>
 2.开发环境版本 Python：3.9，go-cqhttp：v1.0.0， WeChatFerry：39.0.6.0<br>
 3.如果你不懂开发环境安装，直接下载集成环境（<a href="https://github.com/jiubanyipeng/Bot/releases/">下载地址</a>），里面有64位系统运行程序，其他版本暂时不考虑提供。<br>
-4.openai_config.json 是项目的配置文件，openai_config-说明.json是配置文件参考。<br>
+4.openai_config.json 是项目的配置文件<br>
 5.<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=xPGb7CjUN9fIKuJaxbxYrxSRFdzn2dfm&jump_from=webapi&authKey=PR6wsA8VkFLEfvU1Rh8p0SiClK99cgtVeeldQ1MVxhfUCuzkPVan1X15NjwyAetk"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png">QQ群:939531887</a>
 <h1>版本说明</h1>
 <h5>3.1 <b>新增对接微信接口</b><br></h5>
@@ -26,11 +26,19 @@
 <h5>2.0 仅支持对话，可连续对话，对话数据在交换成功后写入本地文件中，文件的生成是根据本地年月日+qq号生成的文件，存在当天会话数过多的可能且存在今天跟明天没有进行连续的问题。</h5>
 <h5>1.0 仅支持单个聊天，适用于图片、询问等单次回答</h5>
 <h1>使用说明</h1>
-1.  先运行go-cqhttp程序，<a href="https://github.com/Mrs4s/go-cqhttp/releases">项目下载地址</a> 该程序必须运行成功之后才可以进行下面的操作<br>
-2.  配置 setting_config.json 文件，说明文件在setting_config-说明.json中。<br>
-3.  在配置文件中，主要配置go-cqhttp程序的 access_token 和通讯地址，通讯地址为 ip+端口 ，cqhttp默认是走正向socket协议，其他协议没有进行测试<br>
-4.  默认机器人是允许所有好友进行回复，详情设置请参考配置说明文件。<br>
-    
+<h5>>一、 对接QQ</h5
+  1.  先运行go-cqhttp程序，<a href="https://github.com/Mrs4s/go-cqhttp/releases">项目下载地址</a> 该程序必须运行成功之后才可以进行下面的操作<br>
+  2.  配置 setting_config.json 文件，说明文件在下方中
+<h5>二、 对接微信</h5>
+ 1.  运行之前先下载，该项目是基于python的，项目安装：python -m pip install wcfhttp
+ 2.  运行wcfhttp框架， 运行命令参考：wcfhttp --cb http://127.0.0.1:9988/weixin_bot_post
+ 3.  配置 setting_config.json 文件，说明文件在下方中<br>
+ 注意：该框架目前仅允许微信版本3.9.2.xx版本，运行该框架之前需要确认微信版本是否正确且需要在电脑登录，因此只能在win系统中使用。微信web的api由于各种限制问题暂不考虑
+<h5>三、 都对接</h5>
+ 1. 对接qq（go-cqhttp）和对接微信程序（wcfhttp）运行成功后，再配置setting_config.json 文件<br>
+ 2.在配置文件中需要开启全部的对接<br>
+默认机器人是允许所有好友进行回复，详情设置请参考配置说明文件。<br>
+  
 <table>
     <caption><h5>主配置说明：</h5></caption>
     <tr align="center">
