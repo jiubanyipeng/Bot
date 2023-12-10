@@ -146,11 +146,11 @@ def generate_text(prompt):
 # GPT的API对接使用
 def run_api(chat_data):
     mes = {'code': False, 'mes': 'API对接函数错误'}
-    if bot_config['api_name'] == "xunfei_config":
+    if bot_config['name_api'] == "xunfei_config":
         XunFeiApi.main(api_config, chat_data)  # 执行，返回的是完成的，将原先的流式返回注释了,注意这里的报错没有进行处理
         mes = {'code': True, 'mes': XunFeiApi.answer}
         XunFeiApi.answer = ''  # 重新清空缓存，防止会话速度太快将问题继续进行访问，但会严重影响响应速度
-    elif bot_config['api_name'] == "openai_config":
+    elif bot_config['name_api'] == "openai_config":
         mes = generate_text(chat_data)  # 发送数据并返回答案,返回的是字典
     return mes
 
@@ -198,12 +198,12 @@ def on_message(ws, message):
         qq_char_processor(chat_manage(user_id, 'user', data["message"], data['message_type']),user_id,data["message"])
     elif data['message_type'] == 'group':
         # 判断是否是 @ 机器人的消息
-        if f"[CQ:at,qq={data.get('self_id')}]" in data.get("message"):  # @123 @123你好
+        if f"[CQ:at,qq={data.get('self_id')}]" in data.get("message"):
             sickle_mes = data["message"].replace(f'[CQ:at,qq={data["self_id"]}]', '').strip()  # 将群信息@替换处理，仅保留信息内容
             data.update({'message': sickle_mes})
-            qq_char_processor(chat_manage(user_id, 'user', sickle_mes, data['message_type'], data['group_id']),sickle_mes)
+            qq_char_processor(chat_manage(user_id, 'user', sickle_mes, data['message_type'], data['group_id']),user_id,sickle_mes)
         else:
-            # 不是@机器人，所以不进行回复，如果进行回复还需要做机器人信息回复的处理
+            # 不是@机器人，所以不进行回复
             return
 
 
@@ -215,7 +215,7 @@ def on_error(ws, error):
 
 
 # 连接关闭时触发
-def on_close(*args):
+def on_close(ws, close_status_code, close_msg):
     print("### 关闭对接程序 ###")
     sleep(3)
 
@@ -232,14 +232,14 @@ bot_config = {}  # 全部的配置文件信息
 
 if __name__ == "__main__":
     try:
-        os_makedirs('BotLog/qq', exist_ok=True)  # 创建日志文件夹
+        os_makedirs('BotLog/qq', exist_ok=True)
         with open('setting_config.json', 'r', encoding='utf-8') as f:
             bot_config = json_loads(f.read())
-        api_config = bot_config['api_name']
-        access_token = bot_config['access_token']  # 你设置的access_token
-        url = bot_config['cqhttp_url']  # cqhttp运行的 ip:端口 或 域名:端口
+        api_config = bot_config[bot_config['name_api']]
+        access_token = bot_config['cqhttp']['access_token']
+        url = bot_config['cqhttp']['cqhttp_url']
         qq_config = bot_config['qq_config']
-        websocket.enableTrace(False)  # websocket信息显示
+        websocket.enableTrace(False)
         ws = websocket.WebSocketApp(f"ws://{url}/?access_token={access_token}", on_message=on_message,
                                     on_error=on_error, on_close=on_close)
         ws.on_open = on_open
@@ -256,7 +256,7 @@ if __name__ == "__main__":
         except Exception as e:
             print('远程文件无法访问，可能是本地网络问题或远程文件不存在，远程文件地址:')
     except Exception as e:
-        print('错误，请检查，以下是报错信息：\n', e)
-        sleep(10)
+        print('以下是报错信息：\n', e)
         print('退出')
+        sleep(10)
 
