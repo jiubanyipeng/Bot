@@ -7,7 +7,7 @@ from time import sleep
 
 
 def run_script(script_name):
-    subprocess.run(["python", script_name+'.py'])
+    subprocess.run(["python", script_name])
 
 
 if __name__ == "__main__":
@@ -53,12 +53,8 @@ if __name__ == "__main__":
                 sleep(5)
         except Exception as e:
             print('远程文件无法访问，可能是本地网络问题或远程文件不存在')
-            sleep(3)
+            sleep(5)
     except Exception as e:
         print('错误，请检查，以下是报错信息：\n', e)
         print('退出...')
         sleep(5)
-
-
-
-
