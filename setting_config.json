@@ -25,11 +25,11 @@
     "group_disabled": false,
     "private_disabled": false,
     "admin_group": [
-      "微信wid，暂时不做该功能",
+      "微信wid",
       "QQ管理员账号二"
     ],
     "permit_group": [
-      "微信wid，暂时不做该功能",
+      "微信wid",
       "QQ账号二",
       "QQ账号三"
     ]
