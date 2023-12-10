@@ -59,7 +59,7 @@
     "max_tokens": 4096,
     "temperature": 0.5
   },
-  "web_bot_config": {
+  "web_config": {
     "port": 9999
   }
 }
