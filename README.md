@@ -32,7 +32,7 @@
 4.  默认机器人是允许所有好友进行回复，详情设置请参考配置说明文件。<br>
     
 <table>
-    <caption><h5>这里是主配置说明：</h5></caption>
+    <caption><h5>主配置说明：</h5></caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
@@ -116,7 +116,7 @@
 </table>
 
 <table>
-    <caption>以下是：qq_config说明</caption>
+    <caption><h5>qq_config说明</h5></caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
@@ -145,7 +145,7 @@
     </table>
     
 <table>
-    <caption>以下是 微信 的配置文件说明：</caption>
+    <caption><h5>weixin_config说明</h5></caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
@@ -174,7 +174,7 @@
 </table>
 
 <table>
-    <caption>以下是cqhttp的配置文件说明：</caption>
+    <caption><h5>cqhttp说明</h5></caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
@@ -193,7 +193,7 @@
 </table>
 
 <table>
-    <caption>以下是wcfhttp的配置文件说明：</caption>
+    <caption><h5>wcfhttp文件说明</h5></caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
@@ -217,7 +217,7 @@
 </table>
 
 <table>
-   <caption>以下是xunfei_config的配置文件说明：</caption>
+   <caption><h5>xunfei_config说明</h5></caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
@@ -261,7 +261,7 @@
 </table>
 
 <table>
-    <caption>以下是：openai_config 配置说明</caption>
+    <caption><h5>openai_config配置说明</h5></caption>
     <tr align="center">
         <th>键名</th>
         <th>参考值</th>
