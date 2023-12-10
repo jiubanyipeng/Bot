@@ -1,4 +1,4 @@
-<h1>各种GPT的API接口对接QQ</h1>
+<h1>各种GPT的API接口对接QQ微信</h1>
 1.QQ项目是基于：（<a href="https://github.com/Mrs4s/go-cqhttp">go-cqhttp</a>项目搭建</a>），微信项目是基于（<a href="https://github.com/lich0821/WeChatFerry/"> WeChatFerry </a>），响应接口由各种GPT的API接口回答<br>
 2.开发环境版本 Python：3.9，go-cqhttp：v1.0.0， WeChatFerry：39.0.6.0<br>
 3.如果你不懂开发环境安装，直接下载集成环境（<a href="https://github.com/jiubanyipeng/Bot/releases/">下载地址</a>），里面有64位系统运行程序，其他版本暂时不考虑提供。<br>
