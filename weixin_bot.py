@@ -141,7 +141,7 @@ def weixin_post_request():
         if not data['is_group']:
             print('私聊信息：', data["content"])
             weixin_char_processor(chat_manage(data['sender'], data["content"]), data['sender'])
-            return 'ok'
+            return '私聊信息已回答'
 
         # 群@信息
         if data['is_group'] and data['is_at']:
@@ -154,7 +154,7 @@ def weixin_post_request():
             content = data['content'].replace(f'@{weixin_name}\u2005', '', 1)
             print(weixin_name,'信息：',content)
             weixin_char_processor(chat_manage(data['sender'], content, 'user',data['roomid']),data['sender'],data['roomid'],group_name)
-            return 'ok'
+            return '群信息已回答'
         # 能到这里应该是群信息且不是@的
         print(data)
     # 这里还有图片，有时间再做
@@ -183,13 +183,14 @@ if __name__ == '__main__':
         try:
             weixin_name = requests_get(wcfhttp["wcfhttp_url"]+'/user-info').json()['data']['ui']['name']
         except Exception as e:
-            print('错误：请检查wcfhttp配置文件中的wcfhttp_url值是否正确。\n正确示例:http://127.0.0.1:9999')
+            print('错误：请检查wcfhttp是否启动成功，且回调函数配置正确！请检查配置文件中的wcfhttp值是否正确。\n正确示例:{"weixin_url_port": 9988,'
+                  '"weixin_url_path": "weixin_bot_post","wcfhttp_url": "http://127.0.0.1:9999"}')
             quit()
 
         with app.app_context():
             app.add_url_rule(f'/{wcfhttp["weixin_url_path"]}', 'weixin_post_request', weixin_post_request,
                              methods=['GET', 'POST'])
-        app.run(debug=True, port=wcfhttp['weixin_url_port'])
+        app.run(debug=False, port=wcfhttp['weixin_url_port'])
 
     except FileNotFoundError:
         print('对接的配置文件：setting_config 出现故障，请检查！\n如果配置文件不存在，将会创建，如果是权限不足给赋予读写文件权限。\n创建配置文件中...')
