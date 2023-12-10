@@ -30,8 +30,8 @@
   1.  先运行go-cqhttp程序，<a href="https://github.com/Mrs4s/go-cqhttp/releases">项目下载地址</a> 该程序必须运行成功之后才可以进行下面的操作<br>
   2.  配置 setting_config.json 文件，说明文件在下方中
 <h4>二、 对接微信</h4>
- 1.  运行之前先下载，该项目是基于python的，项目安装：python -m pip install wcfhttp
- 2.  运行wcfhttp框架， 运行命令参考：wcfhttp --cb http://127.0.0.1:9988/weixin_bot_post
+ 1.  运行之前先下载，该项目是基于python的，项目安装：python -m pip install wcfhttp <br>
+ 2.  运行wcfhttp框架， 运行命令参考：wcfhttp --cb http://127.0.0.1:9988/weixin_bot_post <br>
  3.  配置 setting_config.json 文件，说明文件在下方中<br>
  注意：该框架目前仅允许微信版本3.9.2.xx版本，运行该框架之前需要确认微信版本是否正确且需要在电脑登录，因此只能在win系统中使用。微信web的api由于各种限制问题暂不考虑
 <h4>三、 都对接</h4>
