@@ -102,11 +102,6 @@
         <td>类型为：字典，对接wcfhttp的配置信息，详情见下方</td>
     </tr>
     <tr align="center">
-        <td>cqhttp</td>
-        <td>{}</td>
-        <td>类型为：字典，对接cqhttp的配置信息，详情见下方</td>
-    </tr>
-    <tr align="center">
         <td>xunfei_config</td>
         <td>{}</td>
         <td>类型为：字典，对接讯飞API的配置信息，该项的键名可以被修改但要与name_api中的值相同，但数据内的键名不可修改，详情见下方</td>
