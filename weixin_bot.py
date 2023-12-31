@@ -5,8 +5,8 @@ from json import  loads as json_loads
 from requests import post as requests_post, get as requests_get
 from time import localtime, time, strftime, sleep
 from asyncio import run as asyncio_run
-from gptapi import XunFeiApi
-import qq_bot
+from gptapi import XunFeiApi, OpenAiApi, TongYiQianWen
+
 
 app = Flask(__name__)
 
@@ -24,25 +24,6 @@ async def write_json(file_path, data):
 
 # 聊天对话数据处理，将对话数据进行切割，返回历史聊天记录，列表形式
 def chat_manage(wxid, chat_content, role='user', roomid=''):
-    def getText(context):  # 对话的字符串修改
-        jsoncon = {"role": role, "content": context}
-        text.append(jsoncon)
-        return text
-
-    def getlength(text):  # 字符串计算
-        length = 0
-        for content in text:
-            temp = content["content"]
-            leng = len(temp)
-            length += leng
-        return length
-
-    def checklen(text):  # 字符串列表删除
-        checklen_text = text
-        while (getlength(checklen_text) > bot_config['max_tokens']):  # 目前大部分的模型仅支持到8192
-            del checklen_text[0]
-        return checklen_text
-
     group_pass = False
     # 私聊和群 初始会话化处理
     if len(roomid) > 1:  # 通过roomid判断是否为群信息
@@ -63,15 +44,15 @@ def chat_manage(wxid, chat_content, role='user', roomid=''):
 
     if group_pass:
         if role == 'assistant':
-            chat_json[wxid]['group'][roomid]['chat_data'] = getText(chat_content)
+            chat_json[wxid]['group'][roomid]['chat_data'] = {"role": 'assistant', "content": chat_content}
         else:
-            chat_json[wxid]['group'][roomid]['chat_data'] = checklen(getText(chat_content))
+            chat_json[wxid]['group'][roomid]['chat_data'] = {"role": 'user', "content": chat_content}
             return text
     else:
         if role == 'assistant':
-            chat_json[wxid]['private']['chat_data'] = getText(chat_content)
+            chat_json[wxid]['private']['chat_data'] = {"role": 'assistant', "content": chat_content}
         else:
-            chat_json[wxid]['private']['chat_data'] = checklen(getText(chat_content))
+            chat_json[wxid]['private']['chat_data'] = {"role": 'user', "content": chat_content}
             return text
 
 
@@ -104,7 +85,9 @@ def run_api(chat_data):
         mes = {'code': True, 'mes': XunFeiApi.answer}
         XunFeiApi.answer = ''  # 重新清空缓存，防止会话速度太快将问题继续进行访问，但会严重影响响应速度
     elif bot_config['name_api'] == "openai_config":
-        mes = qq_bot.generate_text(chat_data)  # 发送数据并返回答案,返回的是字典
+        mes = OpenAiApi.generate_text(chat_data, api_config)  # 发送数据并返回答案,返回的是字典
+    elif bot_config['name_api'] == "tyqw_config":
+        mes = TongYiQianWen.generate_text(chat_data,api_config)
     return mes
 
 
@@ -123,13 +106,6 @@ def weixin_post_request():
     # print('数据：', data)
     # 目前仅文字，后期再进行图片的解释
     if data.get('type', 0) == 1 and not data['is_self']:  # 信息为文字且不是自己发的
-        # 账号信息权限验证
-        if weixin_config['private_disabled']:  # 是否启用私发仅允许部分账号
-            if data['sender'] not in weixin_config['permit_group']:
-                return '账号不在范围内'
-        if weixin_config['group_disabled']:  # 是否启用群发仅允许部分账号
-            if data['sender'] not in weixin_config['permit_group']:
-                return '账号不在范围内'
         # 机器人指令
         if '/bot ' == data["content"][0:5]:
             if data['sender'] in weixin_config.get('admin_group', []):
@@ -140,12 +116,21 @@ def weixin_post_request():
         # 私聊信息
         if not data['is_group']:
             print('私聊信息：', data["content"])
+            # 是否启用私发仅允许部分账号
+            if weixin_config['private_disabled']:
+                if data['sender'] not in weixin_config['permit_group']:
+                    return '账号不在范围内'
             weixin_char_processor(chat_manage(data['sender'], data["content"]), data['sender'])
             return '私聊信息已回答'
 
         # 群@信息
         if data['is_group'] and data['is_at']:
             print('群@信息：', data["content"])
+            # 是否启用群发仅允许部分账号
+            if weixin_config['group_disabled']:
+                if data['sender'] not in weixin_config['permit_group']:
+                    return '账号不在范围内'
+
             # 根据群id和wxid查找要@的人
             group_name = requests_get(
                 f'{wcfhttp["wcfhttp_url"]}/alias-in-chatroom/?roomid={data["roomid"]}&wxid={data["sender"]}').json()[
