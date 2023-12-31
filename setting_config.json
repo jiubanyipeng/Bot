@@ -1,6 +1,5 @@
 {
-  "name_api": "xunfei_config",
-  "max_tokens": 8000,
+  "name_api": "tyqw_config",
   "bot_chat_log": true,
   "bot_admin": false,
   "qq_bot": true,
@@ -25,7 +24,7 @@
     "group_disabled": false,
     "private_disabled": false,
     "admin_group": [
-      "微信wid",
+      "微信wid，暂时不做该功能",
       "QQ管理员账号二"
     ],
     "permit_group": [
@@ -34,9 +33,14 @@
       "QQ账号三"
     ]
   },
+  "web_config": {
+    "port": 9999,
+    "path": "",
+    "user_data": [{"暂未使用,后期保留扩展处理": "admin"},{"账号": "密码"}]
+  },
   "cqhttp": {
-    "access_token": "" ,
-    "cqhttp_url": "127.0.0.1:8080"
+    "access_token": "jiubanyipeng",
+    "cqhttp_url": "127.0.0.1:8888"
   },
   "wcfhttp": {
     "weixin_url_port": 9988,
@@ -44,23 +48,30 @@
     "wcfhttp_url": "http://127.0.0.1:9999"
   },
   "xunfei_config": {
-    "appid": "5b06afdg9d",
-    "api_secret": "NjNiMDAwsdfggsdsdfgs",
-    "api_key": "7154c2a81f12d6adfgafgafdgf",
+    "appid": "5b06369d",
+    "api_secret": "NjNiMaaaaaaaaaaa",
+    "api_key": "715aaaaaaaaaaaaaaaaaaa",
     "model": "general",
     "url": "ws://spark-api.xf-yun.com/v1.1/chat",
     "max_tokens": 4096,
+    "max_context": 4096,
     "temperature": 0.5
   },
   "openai_config": {
-    "api_key": "sk-9vsNrBafdagafgafdgadfgafgadkN",
+    "api_key": "sk-9aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "model": "text-davinci-003",
     "url": "https://api.chatgpt.com/v1/chat/completions",
     "max_tokens": 4096,
+    "max_context": 4096,
     "temperature": 0.5
   },
-  "web_config": {
-    "port": 9999
+  "tyqw_config": {
+    "api_key": "sk-e3caaaaaaaaaaaaaaaaaaaa",
+    "model": "qwen-max-1201",
+    "url": "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation",
+    "max_tokens": 1500,
+    "max_context": 6000,
+    "temperature": 1
   }
 }
 
