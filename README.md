@@ -4,27 +4,7 @@
 3.如果你不懂开发环境安装，直接下载集成环境（<a href="https://github.com/jiubanyipeng/Bot/releases/">下载地址</a>），里面有64位系统运行程序，其他版本暂时不考虑提供。<br>
 4.openai_config.json 是项目的配置文件<br>
 5.<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=xPGb7CjUN9fIKuJaxbxYrxSRFdzn2dfm&jump_from=webapi&authKey=PR6wsA8VkFLEfvU1Rh8p0SiClK99cgtVeeldQ1MVxhfUCuzkPVan1X15NjwyAetk"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png">QQ群:939531887</a>
-<h1>版本说明</h1>
-<h5>3.1 <b>新增对接微信接口</b><br></h5>
-<p>修改架构，支持多线程，预留新增web框架接口</p>
-<p>修改日志格式，运行文件分离，预留帮助文档，预留工具模块</p>
 
-<h5>3.0 <b>全新版本，移除旧版本的程序，重新定义和配置文件对接QQ模块</b><br></h5>
-    支持自定义讯飞和openai的接口，后期需要添加在更新<br>
-    修改和添加账号权限验证的问题<br>
-    自定义最大的对话长度和是否写入对话日志<br>
-    qq账号对话时间清除<br>
-    支持多个账号同时对话以及在Q群对话的区分，优化程序速度<br>
-    <p><b>未完成功能：</b></p>
-      支持自定义指令（如：更新配置文件，添加允许账号等）<br>
-      支持文件上传并解析 <br>
-      全局代理（目前仅支持第三方代理对应的api接口，本地去访问代理的）<br>
-      并发限制<br>
-      语音输入、文件生成、文件内容解析等GPT4版本高级功能<br>
-      ......
-<h5>2.1 openai_config.json文件新增几个参数给2.1版本支持。同时，考虑到有些代理跟项目中请求的地址是不一致的，因此在2.1的配置文件中需要自行添加地址。</h5>
-<h5>2.0 仅支持对话，可连续对话，对话数据在交换成功后写入本地文件中，文件的生成是根据本地年月日+qq号生成的文件，存在当天会话数过多的可能且存在今天跟明天没有进行连续的问题。</h5>
-<h5>1.0 仅支持单个聊天，适用于图片、询问等单次回答</h5>
 <h1>使用说明</h1>
 <h4>一、 对接QQ</h4>
   1.  先运行go-cqhttp程序，<a href="https://github.com/Mrs4s/go-cqhttp/releases">项目下载地址</a> 该程序必须运行成功之后才可以进行下面的操作<br>
@@ -298,7 +278,37 @@
     </tr>
 </table>
 
+<h1>版本说明</h1>
+<h5>3.2 </h5>
+<pre>
+1.添加阿里云的通义千问API接口
+2.添加web客户端
+3.修改token计算字符函数，为了兼容更多API接口，移动到各自的API中处理。
+4.配置文件新增web客户端配置和通义千问API配置，添加上下文最大限制token以免错误
+### 注意：该版本的程序与往期版本的配置文件不匹配，该版本的配置文件与往期通用，请更新配置文件
+</pre>
 
+<h5>3.1 <b>新增对接微信接口</b><br></h5>
+<p>修改架构，支持多线程，预留新增web框架接口</p>
+<p>修改日志格式，运行文件分离，预留帮助文档，预留工具模块</p>
+
+<h5>3.0 <b>全新版本，移除旧版本的程序，重新定义和配置文件对接QQ模块</b><br></h5>
+    支持自定义讯飞和openai的接口，后期需要添加在更新<br>
+    修改和添加账号权限验证的问题<br>
+    自定义最大的对话长度和是否写入对话日志<br>
+    qq账号对话时间清除<br>
+    支持多个账号同时对话以及在Q群对话的区分，优化程序速度<br>
+    <p><b>未完成功能：</b></p>
+      支持自定义指令（如：更新配置文件，添加允许账号等）<br>
+      支持文件上传并解析 <br>
+      全局代理（目前仅支持第三方代理对应的api接口，本地去访问代理的）<br>
+      并发限制<br>
+      语音输入、文件生成、文件内容解析等GPT4版本高级功能<br>
+      ......
+<h5>2.1 openai_config.json文件新增几个参数给2.1版本支持。同时，考虑到有些代理跟项目中请求的地址是不一致的，因此在2.1的配置文件中需要自行添加地址。</h5>
+<h5>2.0 仅支持对话，可连续对话，对话数据在交换成功后写入本地文件中，文件的生成是根据本地年月日+qq号生成的文件，存在当天会话数过多的可能且存在今天跟明天没有进行连续的问题。</h5>
+<h5>1.0 仅支持单个聊天，适用于图片、询问等单次回答</h5>
+<br><br>
 <h3>基本功能已经完成，但很多测试没有进行，如有问题请发我邮件或进群询问！</h3>
 <h3><a href="https://www.jiubanyipeng.com/1072.html">教程说明地址（3之前的不更新，请忽略）</a></h3>
 <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=xPGb7CjUN9fIKuJaxbxYrxSRFdzn2dfm&jump_from=webapi&authKey=PR6wsA8VkFLEfvU1Rh8p0SiClK99cgtVeeldQ1MVxhfUCuzkPVan1X15NjwyAetk"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png">QQ群:939531887</a>
