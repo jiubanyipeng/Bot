@@ -350,7 +350,7 @@
     </tr>
   <tr align="center">
         <td>max_context</td>
-        <td>4096</td>
+        <td>6000</td>
         <td>类型为:整型，上下文对话的最大长度</td>
     </tr>
     <tr align="center">
