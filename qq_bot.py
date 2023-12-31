@@ -1,11 +1,11 @@
 # coding:utf-8
-import websocket
-from json import dumps as json_dumps, loads as json_loads
-from requests import post as requests_post, get as requests_get
-from os import makedirs as os_makedirs
-from time import localtime, time, strftime,sleep
 from asyncio import run as asyncio_run
-from gptapi import XunFeiApi
+from json import dumps as json_dumps, loads as json_loads
+from os import makedirs as os_makedirs
+from time import localtime, time, strftime, sleep
+import websocket
+from requests import get as requests_get
+from gptapi import XunFeiApi, OpenAiApi, TongYiQianWen
 
 
 # 异步写入文件
@@ -21,27 +21,7 @@ async def write_json(file_path, data):
 
 # 聊天对话数据处理，将对话数据进行切割
 def chat_manage(user_id, role, chat_content, message_type, group_id='0'):
-    def getText(context):  # 对话的字符串修改
-        jsoncon = {"role": role, "content": context}
-        text.append(jsoncon)
-        return text
-
-    def getlength(text):  # 字符串计算
-        length = 0
-        for content in text:
-            temp = content["content"]
-            leng = len(temp)
-            length += leng
-        return length
-
-    def checklen(text):  # 字符串列表删除
-        checklen_text = text
-        while (getlength(checklen_text) > bot_config['max_tokens']):  # 目前大部分的模型仅支持到8192
-            del checklen_text[0]
-        return checklen_text
-
     group_pass = False
-
     # 会话初始化处理
     if message_type == 'group':
         if user_id not in chat_json:
@@ -62,15 +42,15 @@ def chat_manage(user_id, role, chat_content, message_type, group_id='0'):
         text = chat_json[user_id]['private']['chat_data']
     if group_pass:
         if role == 'assistant':
-            chat_json[user_id]['group'][group_id]['chat_data'] = getText(chat_content)
+            chat_json[user_id]['group'][group_id]['chat_data'] = {"role": 'assistant', "content":chat_content}
         else:
-            chat_json[user_id]['group'][group_id]['chat_data'] = checklen(getText(chat_content))
+            chat_json[user_id]['group'][group_id]['chat_data'] = {"role": 'user', "content":chat_content}
             return text
     else:
         if role == 'assistant':
-            chat_json[user_id]['private']['chat_data'] = getText(chat_content)
+            chat_json[user_id]['private']['chat_data'] = {"role": 'assistant', "content":chat_content}
         else:
-            chat_json[user_id]['private']['chat_data'] = checklen(getText(chat_content))
+            chat_json[user_id]['private']['chat_data'] = {"role": 'user', "content":chat_content}
             return text
 
 
@@ -106,43 +86,6 @@ def qq_picture_processor():
     pass
 
 
-# 对接ChatGPT的api接口模型
-def generate_text(prompt):
-    try:
-        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {api_config['api_key']}"}
-        data = {
-            "messages": prompt,
-            "model": api_config['model'],
-            "max_tokens": api_config['max_tokens'],
-            "temperature": api_config['temperature'],
-        }
-        try:
-            response = requests_post(api_config['url'], headers=headers, json=data)
-        except Exception as e:
-            return {"code": False, "mes": f'连接不上 {url} 的服务器，可能是网络问题！ 请更换代理！\n {e}'}
-        if response.status_code == 200:
-            completions = response.json()["choices"][0]['message']["content"]  # 获取信息内容
-            if response.json()["usage"]['completion_tokens'] < data['max_tokens']:
-                return {"code": True, "mes": completions}
-            else:
-                return {"code": True, "mes": completions + f'\n 回复太多，仅显示部分！仅显示{api_config["max_tokens"]}个token'}
-        if response.status_code == 401:
-            if response.json()['error']['code'] is None:
-                return {"code": False, "mes": f'请填写api_key！\n\n{response.text}'}
-            if response.json()['error']['code'] == 'invalid_api_key':
-                return {"code": False, "mes": f'api_key不对，请检查！\n\n{response.text}'}
-            return {"code": False, "mes": f'错误，地址：{url}\n\n提示信息：\n\n{response.text}'}
-        if response.status_code == 400:
-            return {"code": False, "mes": f'信息有误或返回太大！返回信息： {response.text}'}
-        if response.status_code == 429:
-            return {"code": False, "mes": 'api没有额度或其他：' + response.json()["error"]["message"]}
-        if response.status_code == 404:
-            return {"code": False, "mes": '该模型可能不支持：' + response.json()["error"]["message"]}
-        return {"code": False, "mes": f'api返回的信息好像有问题，信息返回：{response.text}'}
-    except Exception as e:
-        return {"code": False, "mes": f'对接ChatGPT 程序出错了！暂时不清楚情况！{e}'}
-
-
 # GPT的API对接使用
 def run_api(chat_data):
     mes = {'code': False, 'mes': 'API对接函数错误'}
@@ -151,7 +94,9 @@ def run_api(chat_data):
         mes = {'code': True, 'mes': XunFeiApi.answer}
         XunFeiApi.answer = ''  # 重新清空缓存，防止会话速度太快将问题继续进行访问，但会严重影响响应速度
     elif bot_config['name_api'] == "openai_config":
-        mes = generate_text(chat_data)  # 发送数据并返回答案,返回的是字典
+        mes = OpenAiApi.generate_text(chat_data, api_config)  # 发送数据并返回答案,返回的是字典
+    elif bot_config['name_api'] == "tyqw_config":
+        mes = TongYiQianWen.generate_text(chat_data,api_config)
     return mes
 
 
@@ -176,15 +121,6 @@ def on_message(ws, message):
     # 减少cqhttp之间的通信，返回非信息不进行通信
     if data.get('post_type', '') != "message":
         return False
-
-    if qq_config['private_disabled']:  # 是否启用私发仅允许部分账号
-        if user_id not in qq_config['permit_group']:
-            return False
-
-    if qq_config['group_disabled']:  # 是否启用群发仅允许部分账号
-        if user_id not in qq_config['permit_group']:
-            return False
-
     # 机器人指令
     if '/bot ' == data["message"][0:5]:
         if user_id in qq_config.get('admin_group', []):
@@ -195,10 +131,17 @@ def on_message(ws, message):
             return False
     # 信息和账号验证
     if data['message_type'] == 'private':
+        if qq_config['private_disabled']:  # 是否启用私发仅允许部分账号
+            if user_id not in qq_config['permit_group']:
+                return False
         qq_char_processor(chat_manage(user_id, 'user', data["message"], data['message_type']),user_id,data["message"])
     elif data['message_type'] == 'group':
         # 判断是否是 @ 机器人的消息
         if f"[CQ:at,qq={data.get('self_id')}]" in data.get("message"):
+            # 是否启用群发仅允许部分账号
+            if qq_config['group_disabled']:
+                if user_id not in qq_config['permit_group']:
+                    return False
             sickle_mes = data["message"].replace(f'[CQ:at,qq={data["self_id"]}]', '').strip()  # 将群信息@替换处理，仅保留信息内容
             data.update({'message': sickle_mes})
             qq_char_processor(chat_manage(user_id, 'user', sickle_mes, data['message_type'], data['group_id']),user_id,sickle_mes)
