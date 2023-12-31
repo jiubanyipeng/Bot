@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>玖伴一鹏-在线聊天</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .chat-container {
+            position: relative;
+            width: 95%;
+            height: calc(100vh - 140px);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px;
+            overflow-y: scroll;
+            bottom: 40px;
+            margin-top: 30px;
+            margin-left: 30px;
+        }
+
+        .message-container {
+            max-width: 80%;
+            margin-top: 10px;
+            border-radius: 8px;
+            /*display: flex;*/
+            align-items: center;
+            clear: both;
+        }
+
+        .user-message {
+            background-color: #DCF8C6;
+            align-self: flex-start;
+        }
+
+        .system-message {
+            background-color: #E3E3E3;
+            align-self: flex-start;
+        }
+
+        .message-img{
+            display: flex;
+            align-items: center;
+        }
+
+        #input-container {
+            position: fixed;
+            bottom: 20px;
+            width: 70%;
+            max-width: 750px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            background-color: #FFF;
+            border: 1px solid #ccc;
+        }
+        #input-box {
+            width: calc(100% - 70px);
+            height: auto;
+            resize: none;
+            border: none;
+            outline:none;
+            font-size: 20px;
+            overflow-y: auto;
+            min-height: 40px;
+            max-height: 100px;
+        }
+
+        #submit-btn {
+            width: 60px;
+            height: 60px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat-container" id="chat-container">
+        <!-- Message containers will be dynamically added here -->
+    </div>
+    <form id="message-form" onsubmit="sendMessage(); return false;">
+        <div id="input-container">
+            <textarea id="input-box" placeholder="在这里输入你的问题..." rows="2"></textarea>
+            <button type="submit" id="submit-btn">提问</button>
+        </div>
+    </form>
+<script>
+    var token = "{{ token }}" ;
+    var inputBox = document.getElementById('input-box');
+    var user_message = [];  // 仅前端存储对话聊天，不在后端存储
+    inputBox.addEventListener('input', function () {
+        inputBox.style.height = 'auto';
+        inputBox.style.height = (inputBox.scrollHeight) + 'px';
+        checkScrollHeight();
+    });
+    function checkScrollHeight() {
+        var numberOfLines = inputBox.scrollHeight / parseInt(getComputedStyle(inputBox).lineHeight);
+        if (numberOfLines >= 5) {
+            inputBox.style.overflowY = 'scroll';
+        } else {
+            inputBox.style.overflowY = 'hidden';
+        }
+    }
+
+    inputBox.addEventListener('wheel', function (event) {
+        if (inputBox.scrollHeight > inputBox.offsetHeight) {
+            inputBox.scrollTop += event.deltaY;
+            event.preventDefault();
+        }
+    });
+
+    document.getElementById('message-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        sendMessage();
+    });
+
+    inputBox.addEventListener('keydown', function (e) {
+        if (e.keyCode === 13 && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    function sendMessage() {
+        var message = inputBox.value.trim();
+        if (message !== '') {
+            displayUserMessage(message);
+            // 更新对话记录
+            user_message.push({"role": "user", "content": message});
+            var submit_data= {
+                api_key:"{{ api_key }}",
+                token:token,
+                messages:user_message
+            }
+            sendToBackend(submit_data);
+            inputBox.value = '';
+            inputBox.style.height = 'auto';
+            checkScrollHeight();
+        }
+    }
+
+    function displayUserMessage(message) {
+        var chatContainer = document.getElementById('chat-container');
+        var userMessageDiv = document.createElement('div');
+        var userImgDiv = document.createElement('div');
+        userMessageDiv.classList.add('message-container', 'user-message');
+        userImgDiv.classList.add('message-img', 'user-img');
+        userImgDiv.innerHTML = `
+            <img src="{{ url_for('static', filename='images/user.png') }}" alt="User" style="margin-top: 10px;">
+        `;
+        userMessageDiv.innerHTML = `
+            <pre style="margin-left: 10px;margin-right:10px;white-space:pre-wrap;font-size: 20px;">${message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
+        `;
+        chatContainer.appendChild(userImgDiv);
+        chatContainer.appendChild(userMessageDiv);
+        scrollToBottom();  // 对话滚动到底部
+    }
+
+    function displaySystemMessage(message) {
+        var chatContainer = document.getElementById('chat-container');
+        var systemMessageDiv = document.createElement('div');
+        var userImgDiv = document.createElement('div');
+        userImgDiv.classList.add('message-img', 'system-img');
+        userImgDiv.innerHTML = `
+            <img src="{{ url_for('static', filename='images/chatgpt.png') }}" alt="System" style="margin-top: 10px;" >
+        `;
+        chatContainer.appendChild(userImgDiv);
+        systemMessageDiv.classList.add('message-container', 'system-message');
+        systemMessageDiv.innerHTML = `
+            <pre style="margin-left: 10px;margin-right:10px;white-space:pre-wrap;font-size: 20px;">${message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
+        `;
+        chatContainer.appendChild(systemMessageDiv);
+        scrollToBottom();  // 对话滚动到底部
+    }
+    function sendToBackend(submit_data) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/process_message', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                response = JSON.parse(xhr.responseText); // 将数据转为字典
+                if (response['code']){
+                    token = response['token']; // 更新token
+                    // 更新对话记录
+                    user_message.push({"role": "assistant", "content": response['mes']});
+                    displaySystemMessage(response['mes']);
+                }else{// 这里是系统验证不通过的
+                    displaySystemMessage(response['mes']);
+                    user_message.pop();  // 将本次的用户对话删除
+                }
+            }
+        };
+        xhr.send(JSON.stringify(submit_data));
+    }
+    // 将聊天内容滚动到底部
+    function scrollToBottom() {
+        var chatContainer = document.getElementById('chat-container');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+</script>
+</body>
+
+</html>
