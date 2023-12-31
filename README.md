@@ -2,7 +2,7 @@
 1.QQ项目是基于：（<a href="https://github.com/Mrs4s/go-cqhttp">go-cqhttp</a>项目搭建</a>），微信项目是基于（<a href="https://github.com/lich0821/WeChatFerry/"> WeChatFerry </a>），响应接口由各种GPT的API接口回答<br>
 2.开发环境版本 Python：3.9，go-cqhttp：v1.0.0， WeChatFerry：39.0.6.0<br>
 3.如果你不懂开发环境安装，直接下载集成环境（<a href="https://github.com/jiubanyipeng/Bot/releases/">下载地址</a>），里面有64位系统运行程序，其他版本暂时不考虑提供。<br>
-4.openai_config.json 是项目的配置文件<br>
+4.setting_config.json 是项目的配置文件<br>
 5.<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=xPGb7CjUN9fIKuJaxbxYrxSRFdzn2dfm&jump_from=webapi&authKey=PR6wsA8VkFLEfvU1Rh8p0SiClK99cgtVeeldQ1MVxhfUCuzkPVan1X15NjwyAetk"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png">QQ群:939531887</a>
 
 <h1>使用说明</h1>
@@ -33,11 +33,6 @@
         <td>类型为：字符，api接口名称,如果这里填写'name'，下面api的配置名就是"name"，注意键名不能重复</td>
     </tr>
     <tr align="center">
-        <td>max_tokens</td>
-        <td>8000</td>
-        <td>类型为：整型，模型聊天最大的长度，目前openai和讯飞的api接口最大8k，OpenAI 4 版本支持到32k，这里的是数字</td>
-    </tr>
-    <tr align="center">
         <td>bot_chat_log</td>
         <td>true</td>
         <td>类型为：布尔，是否将对话聊天记录写入日志，不启用不影响历史对话</td>
@@ -60,7 +55,7 @@
     <tr align="center">
         <td>web_bot</td>
         <td>false</td>
-        <td>类型为：布尔，是否启动对接网页，该项只在多线程项目有效，该功能暂未开发</td>
+        <td>类型为：布尔，是否启动对接网页，该项只在多线程项目有效</td>
     </tr>
     <tr align="center">
         <td>qq_config</td>
@@ -71,6 +66,11 @@
         <td>weixin_config</td>
         <td>{}</td>
         <td>类型为：字典，对接微信的配置信息，详情见下方</td>
+    </tr>
+  <tr align="center">
+        <td>web_config</td>
+        <td>{}</td>
+        <td>类型为：字典，对接WEB配置信息，详情见下方</td>
     </tr>
     <tr align="center">
         <td>cqhttp</td>
@@ -93,9 +93,9 @@
         <td>类型为：字典，对接OpenAI官方API的配置信息，该项的键名可以被修改但要与name_api中的值相同，但数据内的键名不可修改，详情见下方</td>
     </tr>
     <tr align="center">
-        <td>web_config</td>
+        <td>tyqw_config</td>
         <td>{}</td>
-        <td>类型为：字典，对接WEB配置信息，该项暂未开发</td>
+        <td>类型为：字典，对接通义千问官方API的配置信息，该项的键名可以被修改但要与name_api中的值相同，但数据内的键名不可修改，详情见下方</td>
     </tr>
 </table>
 
@@ -154,6 +154,40 @@
         <td>permit_group</td>
         <td>['wxid_ligxf2y1z3f712','微信wxid','账号三']</td>
         <td>类型为：列表，仅允许部分回复名单，获取微信id的方法之一就是打开微信聊天记录文件地址，看到wxid开头的文件夹就是</td>
+    </tr>
+</table>
+
+<table>
+    <caption><h5>web_config说明</h5></caption>
+    <tr align="center">
+        <th>键名</th>
+        <th>参考值</th>
+        <th>说明</th>
+    </tr>
+    <tr align="center">
+        <td>port</td>
+        <td>9999</td>
+        <td>类型为：整型，web启动的端口。</td>
+    </tr>
+    <tr align="center">
+        <td>path</td>
+        <td>''</td>
+        <td>类型为：字符，聊天地址。默认为空，直接访问，如果添加字符串在访问时需要加上对应的地址。</td>
+    </tr>
+    <tr align="center">
+        <td>streaming</td>
+        <td>false</td>
+        <td>类型为：布尔，如果启用，GPT对接将以流式的方式返回，该功能未开发！</td>
+    </tr>
+  <tr align="center">
+        <td>login</td>
+        <td>false</td>
+        <td>类型为：布尔，如果启用，聊天对话之前需要进行登录，该功能未开发！</td>
+    </tr>
+    <tr align="center">
+        <td>user_data</td>
+        <td>[{"暂未使用,后期保留扩展处理": "admin"},{"账号": "密码"}]</td>
+        <td>类型为：列表，列表中的字典是登录的账号和密码，该功能未开发！</td>
     </tr>
 </table>
 
@@ -237,6 +271,11 @@
         <td>4096</td>
         <td>类型为数字，讯飞回复信息最大的长度</td>
     </tr>
+  <tr align="center">
+        <td>max_context</td>
+        <td>4096</td>
+        <td>类型为:整型，上下文对话的最大长度</td>
+    </tr>
     <tr align="center">
         <td>temperature</td>
         <td>0.5</td>
@@ -271,13 +310,56 @@
         <td>8192</td>
         <td>类型为：整型，回复最大的长度</td>
     </tr>
+  <tr align="center">
+        <td>max_context</td>
+        <td>4096</td>
+        <td>类型为:整型，上下文对话的最大长度</td>
+    </tr>
     <tr align="center">
         <td>temperature</td>
         <td>0.5</td>
         <td>类型为：浮点，模糊回答值</td>
     </tr>
 </table>
-
+<table>
+    <caption><h5>tyqw_config配置说明</h5></caption>
+    <tr align="center">
+        <th>键名</th>
+        <th>参考值</th>
+        <th>说明</th>
+    </tr>
+    <tr align="center">
+        <td>api_key</td>
+        <td>"fgdsgs546354dgjd"</td>
+        <td>类型为:字符，通义千问的api_key</td>
+    </tr>
+    <tr align="center">
+        <td>model</td>
+        <td>"text-davinci-003"</td>
+        <td>类型为：字符，通义千问的模型版本</td>
+    </tr>
+    <tr align="center">
+        <td>url</td>
+        <td>"https://api.chatgpt.com/v1/chat/completions"</td>
+        <td>类型为：字符，通义千问的api访问地址</td>
+    </tr>
+    <tr align="center">
+        <td>max_tokens</td>
+        <td>8192</td>
+        <td>类型为：整型，回复最大的长度</td>
+    </tr>
+  <tr align="center">
+        <td>max_context</td>
+        <td>4096</td>
+        <td>类型为:整型，上下文对话的最大长度</td>
+    </tr>
+    <tr align="center">
+        <td>temperature</td>
+        <td>0.5</td>
+        <td>类型为：浮点，模糊回答值</td>
+    </tr>
+</table>
+    
 <h1>版本说明</h1>
 <h5>3.2 </h5>
 <pre>
