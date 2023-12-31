@@ -36,6 +36,8 @@
   "web_config": {
     "port": 9999,
     "path": "",
+    "streaming": false,
+    "login": false,
     "user_data": [{"暂未使用,后期保留扩展处理": "admin"},{"账号": "密码"}]
   },
   "cqhttp": {
